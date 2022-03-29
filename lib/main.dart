@@ -32,8 +32,9 @@ class MyApp extends StatelessWidget {
             theme: themeNotifier.isDark
                 ? ThemeData.dark().copyWith(
                     appBarTheme: const AppBarTheme(
+                        backgroundColor: Colors.indigo,
                         centerTitle: true,
-                        foregroundColor: Color.fromARGB(221, 19, 13, 13)),
+                        foregroundColor: Colors.white),
                     scaffoldBackgroundColor: Colors.black87,
 /*                     textTheme: TextTheme(
                       bodyText1: TextStyle(),
@@ -42,11 +43,11 @@ class MyApp extends StatelessWidget {
                       bodyColor: Colors.orange,
                       displayColor: Colors.blue,
                     ), */
+                    textTheme: TextTheme(),
                   )
                 : ThemeData.light().copyWith(
                     appBarTheme: const AppBarTheme(
-                        centerTitle: true,
-                        backgroundColor: Color.fromARGB(255, 107, 219, 163)),
+                        centerTitle: true, backgroundColor: Colors.indigo),
                     scaffoldBackgroundColor: Colors.white),
             home: const SplashScreen(),
             routes: AppRoutes
@@ -68,7 +69,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      splash: "images/Comp 1.gif",
+      splash: "assets/Comp 1.gif",
       backgroundColor: Colors.black,
       nextScreen: LoginScreen(),
       splashIconSize: 400,

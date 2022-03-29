@@ -20,7 +20,11 @@ class LoginScreen extends StatelessWidget {
                   child: Column(
                 children: [
                   SizedBox(height: 10),
-                  Text('Login', style: Theme.of(context).textTheme.headline4),
+                  Text(
+                    'Login',
+                    style: TextStyle(
+                        color: Colors.black, fontWeight: FontWeight.bold),
+                  ),
                   SizedBox(height: 30),
                   ChangeNotifierProvider(
                       create: (_) => LoginFormProvider(), child: _LoginForm())
@@ -55,6 +59,7 @@ class _LoginForm extends StatelessWidget {
               TextFormField(
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
+                style: TextStyle(color: Colors.black),
                 decoration: InputDecorations.authInputDecoration(
                     hintText: 'isai@gmail.com',
                     labelText: 'Correo Electronico',
@@ -75,6 +80,7 @@ class _LoginForm extends StatelessWidget {
                 autocorrect: false,
                 obscureText: false,
                 keyboardType: TextInputType.emailAddress,
+                style: TextStyle(color: Colors.black),
                 decoration: InputDecorations.authInputDecoration(
                     hintText: '********',
                     labelText: 'Contraseña',
@@ -111,7 +117,8 @@ class _LoginForm extends StatelessWidget {
 
                         loginForm.isLoading = false;
 
-                        Navigator.pushReplacementNamed(context, 'HomeScreen');
+                        Navigator.pushReplacementNamed(
+                            context, AppRoutes.initialRoute);
                       },
               ),
             ],

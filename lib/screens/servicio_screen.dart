@@ -75,7 +75,10 @@ class _ServicesScreenBody extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: servicioService.isSaving
             ? CircularProgressIndicator(color: Colors.white)
-            : Icon(Icons.save_outlined),
+            : Icon(
+                Icons.save_outlined,
+              ),
+        backgroundColor: Colors.indigo,
         onPressed: servicioService.isSaving
             ? null
             : () async {
@@ -112,17 +115,21 @@ class _ServicioForm extends StatelessWidget {
               SizedBox(height: 10),
               TextFormField(
                 initialValue: servicio.name,
+                style: TextStyle(color: Colors.black),
                 onChanged: (value) => servicio.name = value,
                 validator: (value) {
                   if (value == null || value.length < 1)
                     return 'El nombre es obligatoio';
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    hintText: 'Nombre del Sevicio', labelText: 'Nombre'),
+                  hintText: 'Nombre del Sevicio',
+                  labelText: 'Nombre',
+                ),
               ),
               SizedBox(height: 30),
               TextFormField(
                 initialValue: servicio.horario,
+                style: TextStyle(color: Colors.black),
                 onChanged: (value) => servicio.horario = value,
                 validator: (value) {
                   if (value == null || value.length < 1)
@@ -146,6 +153,7 @@ class _ServicioForm extends StatelessWidget {
                   }
                 },
                 keyboardType: TextInputType.number,
+                style: TextStyle(color: Colors.black),
                 decoration: InputDecorations.authInputDecoration(
                     hintText: 'Capacidad de personas',
                     labelText: 'Máximo de personas'),
@@ -153,7 +161,10 @@ class _ServicioForm extends StatelessWidget {
               SizedBox(height: 30),
               SwitchListTile.adaptive(
                   value: servicio.discapacitados,
-                  title: Text('Adecuado para personas con movilidad reducida'),
+                  title: Text(
+                    'Adecuado para personas con movilidad reducida',
+                    style: TextStyle(color: Colors.black),
+                  ),
                   activeColor: Colors.indigo,
                   onChanged: servicioForm.updateAvailability),
               SizedBox(height: 30),
@@ -167,8 +178,12 @@ class _ServicioForm extends StatelessWidget {
   BoxDecoration _buildBoxDecoration() => BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.only(
-              bottomRight: Radius.circular(25),
-              bottomLeft: Radius.circular(25)),
+            bottomRight: Radius.circular(25),
+            bottomLeft: Radius.circular(25),
+          ),
+          border: Border.all(
+            color: Colors.indigo,
+          ),
           boxShadow: [
             BoxShadow(
                 color: Colors.black.withOpacity(0.05),

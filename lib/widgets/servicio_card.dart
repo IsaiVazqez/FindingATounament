@@ -90,8 +90,12 @@ class _PersonasMax extends StatelessWidget {
                   child: Icon(Icons.group, size: 24),
                 ),
                 TextSpan(
-                    text: ('$personas'),
-                    style: TextStyle(color: Colors.white, fontSize: 25)),
+                  text: ('$personas'),
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 23,
+                      fontWeight: FontWeight.w600),
+                ),
               ],
             ),
           ),

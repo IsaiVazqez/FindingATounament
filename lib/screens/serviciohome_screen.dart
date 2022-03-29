@@ -18,7 +18,11 @@ class ServicioHome extends StatelessWidget {
     if (servicioService.isLoading) return LoadingScreen();
 
     return Scaffold(
-      appBar: AppBar(title: Text('Servicios')),
+      appBar: AppBar(
+        title: Text('Servicios'),
+        shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
+      ),
       body: ListView.builder(
           itemCount: servicioService.servicio.length,
           itemBuilder: (BuildContext context, int index) => GestureDetector(
@@ -32,7 +36,10 @@ class ServicioHome extends StatelessWidget {
                 ),
               )),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
+        child: Icon(
+          Icons.add,
+        ),
+        backgroundColor: Colors.indigo,
         onPressed: () {
           servicioService.selectedServicio = new Servicio(
               horario: '', discapacitados: false, name: '', personas: 0);

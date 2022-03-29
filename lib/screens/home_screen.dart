@@ -27,16 +27,19 @@ class _HomeScreenState extends State<HomeScreen> {
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(10))),
             /* automaticallyImplyLeading: false, */
-            title: const Center(child: Text('')),
-            centerTitle: false,
-            titleTextStyle: const TextStyle(
-                fontSize: 20,
-                color: Color.fromARGB(255, 235, 235, 235),
-                fontFamily: 'SFPRODISPLAY2'),
+            title: const Text(
+              'Finding A Tournament',
+            ),
             elevation: 0,
+            titleTextStyle: const TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontFamily: 'SFPRODISPLAY2',
+              fontWeight: FontWeight.bold,
+            ),
             actions: [
               IconButton(
-                  color: const Color.fromARGB(255, 50, 107, 156),
+                  color: const Color.fromARGB(255, 255, 255, 255),
                   icon: Icon(themeNotifier.isDark
                       ? Icons.nightlight_round
                       : Icons.wb_sunny),
@@ -56,11 +59,6 @@ class _HomeScreenState extends State<HomeScreen> {
               children: [
                 const Padding(
                   padding: EdgeInsets.only(top: 0, left: 10, right: 10),
-                  child: Text(
-                    'Finding A Tournament',
-                    textAlign: TextAlign.left,
-                    style: TextStyle(fontSize: 25, fontFamily: 'SFPRODISPLAY2'),
-                  ),
                 ),
                 const SizedBox(
                   height: 22,
@@ -95,7 +93,7 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 45,
 
             ///configuration for SnakeNavigationBar.color
-            snakeViewColor: const Color.fromARGB(255, 81, 204, 177),
+            snakeViewColor: Colors.indigo,
             selectedItemColor:
                 SnakeShape.circle == SnakeShape.indicator ? Colors.black : null,
             unselectedItemColor: Colors.blueGrey,
@@ -147,7 +145,7 @@ class card1 extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('images/BalonB.png'),
+                image: AssetImage('assets/BalonB.png'),
                 alignment: Alignment.topRight,
                 scale: 4,
                 opacity: 40),
@@ -176,10 +174,10 @@ class card1 extends StatelessWidget {
                     textWidthBasis: TextWidthBasis.parent,
                     maxLines: 3,
                     style: TextStyle(
-                      fontSize: 30,
-                      fontFamily: 'SFPRODISPLAY0',
-                      color: Colors.white,
-                    ),
+                        fontSize: 30,
+                        fontFamily: 'SFPRODISPLAY0',
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
                   ),
                 ),
               ],
@@ -205,7 +203,7 @@ class card2 extends StatelessWidget {
         child: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
-                image: AssetImage('images/trofB.png'),
+                image: AssetImage('assets/trofB.png'),
                 alignment: Alignment.topRight,
                 scale: 4,
                 opacity: 50),
@@ -234,9 +232,11 @@ class card2 extends StatelessWidget {
                     textWidthBasis: TextWidthBasis.parent,
                     maxLines: 3,
                     style: TextStyle(
-                        fontSize: 30,
-                        fontFamily: 'SFPRODISPLAY0 ',
-                        color: Colors.white),
+                      fontSize: 30,
+                      fontFamily: 'SFPRODISPLAY0 ',
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                 ),
               ],
