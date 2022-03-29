@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
+import 'package:line_icons/line_icons.dart';
 import '../models/user.dart';
 import '../routes/app_routes.dart';
 import '../themes/user_preferences.dart';
@@ -22,82 +24,102 @@ class _ProfilePageState extends State<ProfilePage> {
     final user = UserPreferences.myUser;
 
     return Scaffold(
-      appBar: AppBar(
-          shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(bottom: Radius.circular(22))),
-          automaticallyImplyLeading: false,
-          title: const Center(child: Text('Perfil')),
-          elevation: 0,
-          titleTextStyle: const TextStyle(
-              fontSize: 20,
-              color: Color.fromARGB(255, 255, 255, 255),
-              fontWeight: FontWeight.bold,
-              fontFamily: 'SFPRODISPLAY'),
-          actions: []),
-      body: ListView(
-        physics: const BouncingScrollPhysics(),
-        children: [
-          const SizedBox(height: 10),
-          ProfileWidget(
-            imagePath: user.imagePath,
-            onClicked: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => EditProfilePage()),
-              );
-            },
+        appBar: AppBar(
+            shape: const RoundedRectangleBorder(
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(22))),
+            automaticallyImplyLeading: false,
+            title: const Center(child: Text('Perfil')),
+            elevation: 0,
+            titleTextStyle: const TextStyle(
+                fontSize: 20,
+                color: Color.fromARGB(255, 255, 255, 255),
+                fontWeight: FontWeight.bold,
+                fontFamily: 'SFPRODISPLAY'),
+            actions: []),
+        body: ListView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            const SizedBox(height: 10),
+            ProfileWidget(
+              imagePath: user.imagePath,
+              onClicked: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => EditProfilePage()),
+                );
+              },
+            ),
+            const SizedBox(height: 24),
+            buildName(user),
+            const SizedBox(height: 24),
+            NumbersWidget(),
+            const SizedBox(height: 24),
+            buildDirecc(user),
+            const SizedBox(height: 24),
+            buildHorario(user),
+            const SizedBox(height: 20),
+            buildUbicacion(user),
+            Container(
+              child: MapScreen(),
+              margin: const EdgeInsets.only(
+                  top: 20, left: 35, right: 35, bottom: 5),
+              width: 20,
+              height: 200,
+            )
+          ],
+        ),
+        bottomNavigationBar: Container(
+          decoration: BoxDecoration(
+            color: Colors.indigo,
+            boxShadow: [
+              BoxShadow(
+                blurRadius: 20,
+                color: Colors.black.withOpacity(.1),
+              )
+            ],
           ),
-          const SizedBox(height: 24),
-          buildName(user),
-          const SizedBox(height: 24),
-          NumbersWidget(),
-          const SizedBox(height: 24),
-          buildDirecc(user),
-          const SizedBox(height: 24),
-          buildHorario(user),
-          const SizedBox(height: 20),
-          buildUbicacion(user),
-          Container(
-            child: MapScreen(),
-            margin:
-                const EdgeInsets.only(top: 20, left: 35, right: 35, bottom: 5),
-            width: 20,
-            height: 200,
-          )
-        ],
-      ),
-      bottomNavigationBar: SnakeNavigationBar.color(
-        behaviour: SnakeBarBehaviour.floating,
-        snakeShape: SnakeShape.circle,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-        elevation: 5,
-        padding: const EdgeInsets.all(11),
-        height: 45,
-
-        ///configuration for SnakeNavigationBar.color
-        snakeViewColor: Colors.indigo,
-        selectedItemColor:
-            SnakeShape.circle == SnakeShape.indicator ? Colors.black : null,
-        unselectedItemColor: Colors.blueGrey,
-
-        showUnselectedLabels: false,
-        showSelectedLabels: false,
-
-        currentIndex: home,
-        onTap: (index) {
-          setState(() {
-            if (home == index) {
-              Navigator.pushReplacementNamed(context, AppRoutes.profileRoute);
-            } else {
-              Navigator.pushReplacementNamed(context, AppRoutes.initialRoute);
-            }
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.home), label: 'HomeScreen'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'profile'),
-        ],
-      ),
-    );
+          child: SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 60, vertical: 8),
+              child: GNav(
+                rippleColor: Colors.grey[300]!,
+                hoverColor: Colors.grey[100]!,
+                gap: 8,
+                activeColor: Colors.black,
+                iconSize: 24,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                duration: const Duration(milliseconds: 400),
+                tabBackgroundColor: Colors.white,
+                color: Colors.black,
+                tabs: [
+                  const GButton(
+                    icon: LineIcons.home,
+                    text: 'Home',
+                  ),
+                  const GButton(
+                    icon: LineIcons.user,
+                    text: 'Profile',
+                  ),
+                ],
+                selectedIndex: home,
+                onTabChange: (index) {
+                  setState(
+                    () {
+                      if (home == index) {
+                        Navigator.pushReplacementNamed(
+                            context, AppRoutes.profileRoute);
+                      } else {
+                        Navigator.pushReplacementNamed(
+                            context, AppRoutes.initialRoute);
+                      }
+                    },
+                  );
+                },
+              ),
+            ),
+          ),
+        ));
   }
 }
 

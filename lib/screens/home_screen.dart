@@ -7,6 +7,8 @@ import 'package:provider/provider.dart';
 import '../main.dart';
 import '../theme_model.dart';
 import 'serviciohome_screen.dart';
+import 'package:google_nav_bar/google_nav_bar.dart' show GButton, GNav;
+import 'package:line_icons/line_icons.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -83,43 +85,58 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-          bottomNavigationBar: SnakeNavigationBar.color(
-            behaviour: SnakeBarBehaviour.floating,
-            snakeShape: SnakeShape.circle,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            elevation: 5,
-            padding: const EdgeInsets.all(11),
-            height: 45,
-
-            ///configuration fo SnakeNavigationBar.color
-            snakeViewColor: Colors.indigo,
-            selectedItemColor: SnakeShape.circle == SnakeShape.indicator
-                ? Colors.indigo
-                : null,
-            unselectedItemColor: Colors.blueGrey,
-
-            showUnselectedLabels: false,
-            showSelectedLabels: false,
-
-            currentIndex: home,
-            onTap: (index) {
-              setState(() {
-                if (home == index) {
-                  Navigator.pushReplacementNamed(
-                      context, AppRoutes.initialRoute);
-                } else {
-                  Navigator.pushReplacementNamed(
-                      context, AppRoutes.profileRoute);
-                }
-              });
-            },
-            items: const [
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.home), label: 'HomeScreen'),
-              BottomNavigationBarItem(
-                  icon: Icon(Icons.person), label: 'profile'),
-            ],
+          bottomNavigationBar: Container(
+            decoration: BoxDecoration(
+              color: Colors.indigo,
+              boxShadow: [
+                BoxShadow(
+                  blurRadius: 20,
+                  color: Colors.black.withOpacity(.1),
+                )
+              ],
+            ),
+            child: SafeArea(
+              child: Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 60, vertical: 8),
+                child: GNav(
+                  rippleColor: Colors.grey[300]!,
+                  hoverColor: Colors.grey[100]!,
+                  gap: 8,
+                  activeColor: Colors.black,
+                  iconSize: 24,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                  duration: const Duration(milliseconds: 400),
+                  tabBackgroundColor: Colors.white,
+                  color: Colors.black,
+                  tabs: [
+                    const GButton(
+                      icon: LineIcons.home,
+                      text: 'Home',
+                    ),
+                    const GButton(
+                      icon: LineIcons.user,
+                      text: 'Profile',
+                    ),
+                  ],
+                  selectedIndex: home,
+                  onTabChange: (index) {
+                    setState(
+                      () {
+                        if (home == index) {
+                          Navigator.pushReplacementNamed(
+                              context, AppRoutes.initialRoute);
+                        } else {
+                          Navigator.pushReplacementNamed(
+                              context, AppRoutes.profileRoute);
+                        }
+                      },
+                    );
+                  },
+                ),
+              ),
+            ),
           ),
         );
       },
