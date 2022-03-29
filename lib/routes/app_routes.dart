@@ -1,6 +1,5 @@
 import '../models/item_menu.dart';
 import '../screens/screens.dart';
-import '../services/services.dart';
 import 'package:flutter/material.dart';
 
 class AppRoutes {
@@ -8,8 +7,7 @@ class AppRoutes {
   static const String serviceseditRoute = 'servicioedit';
   static const String loginscreen = 'login';
   static const String serviciohome = 'servicios';
-  static const String basicl = 'bl';
-  static const String profileRoute = 'prof';
+  static const String profileRoute = 'profile';
   static const String carrousel = 'slider';
   static const String regClub = 'regClubs';
 
@@ -35,9 +33,9 @@ class AppRoutes {
       screen: ServicioHome(),
     ),
     ItemMenu(
-      label: 'login',
-      route: regClub,
-      screen: LoginScreen(),
+      label: 'profile',
+      route: profileRoute,
+      screen: const ProfilePage(),
     ),
 /*     ItemMenu(
       label: 'Perfil',

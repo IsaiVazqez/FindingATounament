@@ -92,16 +92,12 @@ class _HomeScreenState extends State<HomeScreen> {
             padding: const EdgeInsets.all(11),
             height: 45,
 
-            ///configuration for SnakeNavigationBar.color
+            ///configuration fo SnakeNavigationBar.color
             snakeViewColor: Colors.indigo,
-            selectedItemColor:
-                SnakeShape.circle == SnakeShape.indicator ? Colors.black : null,
+            selectedItemColor: SnakeShape.circle == SnakeShape.indicator
+                ? Colors.indigo
+                : null,
             unselectedItemColor: Colors.blueGrey,
-
-            ///configuration for SnakeNavigationBar.gradient
-            //snakeViewGradient: selectedGradient,
-            //selectedItemGradient: snakeShape == SnakeShape.indicator ? selectedGradient : null,
-            //unselectedItemGradient: unselectedGradient,
 
             showUnselectedLabels: false,
             showSelectedLabels: false,
