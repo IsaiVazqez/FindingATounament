@@ -9,6 +9,9 @@
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Ncesito acceso al microfono</string>
 
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Necesito acceso a la tu ubicación</string>
+
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
 	<key>CFBundleDisplayName</key>
@@ -50,5 +53,6 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+
 </dict>
 </plist>

@@ -205,10 +205,10 @@ class _MapScreenState extends State<MapScreen> {
     return Center(
       child: ClipRRect(
         borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(30),
-          topRight: Radius.circular(30),
-          bottomRight: Radius.circular(30),
-          bottomLeft: Radius.circular(30),
+          topLeft: Radius.circular(10),
+          topRight: Radius.circular(10),
+          bottomRight: Radius.circular(10),
+          bottomLeft: Radius.circular(10),
         ),
         child: Align(
           alignment: Alignment.bottomRight,
