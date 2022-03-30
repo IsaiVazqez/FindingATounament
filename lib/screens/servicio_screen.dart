@@ -100,7 +100,7 @@ class _ServicioForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final servicioForm = Provider.of<ServiceFormProvider>(context);
     final servicio = servicioForm.servicio;
-    List<String> items = [
+    List<String?> items = [
       'Fútbol',
       'Béisbol',
       'Básquetbol',
@@ -119,7 +119,6 @@ class _ServicioForm extends StatelessWidget {
       'Judo',
       'Softbol',
     ];
-    String? dropdownvalue = servicio.name;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Container(
@@ -128,7 +127,8 @@ class _ServicioForm extends StatelessWidget {
         decoration: _buildBoxDecoration(),
         child: Form(
           key: servicioForm.formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
+/*           autovalidateMode: AutovalidateMode.onUserInteraction,
+ */
           child: Column(
             children: [
               SizedBox(height: 30),
@@ -146,8 +146,7 @@ class _ServicioForm extends StatelessWidget {
                           BorderSide(color: Colors.deepPurple, width: 2)),
                   labelStyle: const TextStyle(color: Colors.grey),
                 ),
-
-                value: servicio.name,
+                value: servicio.name.isEmpty ? 'Fútbol' : servicio.name,
                 focusColor: Colors.white,
                 iconDisabledColor: Colors.black,
                 iconEnabledColor: Colors.black,
@@ -162,7 +161,7 @@ class _ServicioForm extends StatelessWidget {
                         DropdownMenuItem<String>(
                           value: items,
                           child: Text(
-                            items,
+                            items!,
                             style: const TextStyle(
                                 fontSize: 15, color: Colors.black),
                           ),
@@ -199,19 +198,28 @@ class _ServicioForm extends StatelessWidget {
               ),
               SizedBox(height: 30),
               TextFormField(
-                initialValue: '${servicio.personas}',
+                initialValue: servicio.personas.toString() == '0'
+                    ? null
+                    : '${servicio.personas}',
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                       RegExp(r'^(\d+)?\.?\d{0,2}'))
                 ],
                 onChanged: (value) {
-                  if (double.tryParse(value) == null) {
-                    servicio.personas = 0;
-                  } else {
-                    servicio.personas = int.parse(value);
-                  }
+                  // if (double.tryParse(value) == null) {
+                  //   servicio.personas = 0;
+                  // } else {
+
+                  // }
+                  servicio.personas = int.parse(value);
                 },
                 keyboardType: TextInputType.number,
+                validator: (value) {
+                  final n = num.tryParse(value!);
+                  if (n == 0 || n == null) {
+                    return 'El numero de personas debe de ser mayor a 0';
+                  }
+                },
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecorations.authInputDecoration(
                     hintText: 'Capacidad de personas',
