@@ -78,6 +78,7 @@ class ServicioService extends ChangeNotifier {
 
   void updateSelectedProductImage(String path) {
     this.selectedServicio.picture = path;
+
     this.newPictureFile = File.fromUri(Uri(path: path));
 
     notifyListeners();

@@ -100,7 +100,26 @@ class _ServicioForm extends StatelessWidget {
   Widget build(BuildContext context) {
     final servicioForm = Provider.of<ServiceFormProvider>(context);
     final servicio = servicioForm.servicio;
-
+    List<String> items = [
+      'Fútbol',
+      'Béisbol',
+      'Básquetbol',
+      'Natación',
+      'Tenis',
+      'Voleibol',
+      'Boxeo',
+      'Atletismo',
+      'Golf',
+      'Juego de pelota',
+      'Taekwondo',
+      'Karate',
+      'Esgrima',
+      'Gimnasia',
+      'Handball',
+      'Judo',
+      'Softbol',
+    ];
+    String? dropdownvalue = servicio.name;
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: 10),
       child: Container(
@@ -112,8 +131,48 @@ class _ServicioForm extends StatelessWidget {
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: Column(
             children: [
-              SizedBox(height: 10),
-              TextFormField(
+              SizedBox(height: 30),
+              DropdownButtonFormField<String>(
+                isExpanded: true,
+                decoration: InputDecoration(
+                  labelText: 'Horarios',
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide:
+                        const BorderSide(width: 1, color: Colors.indigo),
+                  ),
+                  focusedBorder: const UnderlineInputBorder(
+                      borderSide:
+                          BorderSide(color: Colors.deepPurple, width: 2)),
+                  labelStyle: const TextStyle(color: Colors.grey),
+                ),
+
+                value: servicio.name,
+                focusColor: Colors.white,
+                iconDisabledColor: Colors.black,
+                iconEnabledColor: Colors.black,
+                dropdownColor: Colors.white,
+
+                // Down Arrow Icon
+                icon: const Icon(Icons.keyboard_arrow_down),
+                items: items
+                    .map((
+                      items,
+                    ) =>
+                        DropdownMenuItem<String>(
+                          value: items,
+                          child: Text(
+                            items,
+                            style: const TextStyle(
+                                fontSize: 15, color: Colors.black),
+                          ),
+                        ))
+                    .toList(),
+
+                onChanged: (items) => servicio.name = items!,
+              ),
+
+/*               TextFormField(
                 initialValue: servicio.name,
                 style: TextStyle(color: Colors.black),
                 onChanged: (value) => servicio.name = value,
@@ -125,7 +184,7 @@ class _ServicioForm extends StatelessWidget {
                   hintText: 'Nombre del Sevicio',
                   labelText: 'Nombre',
                 ),
-              ),
+              ), */
               SizedBox(height: 30),
               TextFormField(
                 initialValue: servicio.horario,
@@ -176,18 +235,22 @@ class _ServicioForm extends StatelessWidget {
   }
 
   BoxDecoration _buildBoxDecoration() => BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            bottomRight: Radius.circular(25),
-            bottomLeft: Radius.circular(25),
-          ),
-          border: Border.all(
-            color: Colors.indigo,
-          ),
-          boxShadow: [
-            BoxShadow(
-                color: Colors.black.withOpacity(0.05),
-                offset: Offset(0, 5),
-                blurRadius: 5)
-          ]);
+        color: Colors.white,
+        borderRadius: BorderRadius.only(
+          bottomRight: Radius.circular(25),
+          bottomLeft: Radius.circular(25),
+        ),
+        border: Border.all(
+          color: Colors.indigo,
+        ),
+        boxShadow: [
+          BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              offset: Offset(0, 5),
+              blurRadius: 5)
+        ],
+      );
+
+/*   setState(String Function() param0) {}
+} */
 }
