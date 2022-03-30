@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:line_icons/line_icons.dart';
@@ -8,6 +7,7 @@ import '../routes/app_routes.dart';
 import '../themes/user_preferences.dart';
 import 'package:login/widgets/widgets.dart';
 import 'package:login/screens/screens.dart';
+import 'package:location/location.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -195,6 +195,7 @@ class MapScreen extends StatefulWidget {
 
 class _MapScreenState extends State<MapScreen> {
   late GoogleMapController mapController; //contrller for Google map
+  Location _location = Location();
   Set<Marker> markers = new Set(); //markers for google map
   static const LatLng showLocation =
       LatLng(20.943781926121023, -89.5940972859401);
@@ -224,10 +225,12 @@ class _MapScreenState extends State<MapScreen> {
             mapType: MapType.normal, //map type
             onMapCreated: (controller) {
               //method called when map is created
+              _location.onLocationChanged.listen((l) {});
               setState(() {
                 mapController = controller;
               });
             },
+            myLocationEnabled: true,
           ),
         ),
       ),
