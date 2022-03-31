@@ -9,7 +9,7 @@ class AppRoutes {
   static const String serviciohome = 'servicios';
   static const String profileRoute = 'profile';
   static const String carrousel = 'slider';
-  static const String regClub = 'regClubs';
+  static const String torneosedit = 'torneosedit';
 
   static final menuOptions = <ItemMenu>[
     ItemMenu(
@@ -26,6 +26,11 @@ class AppRoutes {
       label: 'login',
       route: loginscreen,
       screen: LoginScreen(),
+    ),
+    ItemMenu(
+      label: 'torneosedit',
+      route: torneosedit,
+      screen: ToneoEditar(),
     ),
     ItemMenu(
       label: 'servicios',

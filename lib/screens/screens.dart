@@ -11,3 +11,5 @@ export 'package:login/screens/edit_profile_page.dart';
 export 'package:login/screens/torneos_screen.dart';
 
 export 'package:login/screens/loading_torneo_screen.dart';
+
+export 'package:login/screens/torneo_edit.dart';

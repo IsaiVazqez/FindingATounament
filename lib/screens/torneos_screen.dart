@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/models/models.dart';
+import 'package:login/routes/AnimationPageRoute.dart';
 import 'package:login/services/services.dart';
 import 'package:login/widgets/widgets.dart';
 import 'package:login/screens/screens.dart';
@@ -25,7 +26,7 @@ class TorneosHome extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) => GestureDetector(
           onTap: () {
             torneoService.selectedTorneo = torneoService.torneo[index].copy();
-            Navigator.pushNamed(context, 'servicioedit');
+            Navigator.push(context, AnimationPageRoute(widget: ToneoEditar()));
           },
           child: TorneoCard(
             torneo: torneoService.torneo[index],
@@ -47,7 +48,7 @@ class TorneosHome extends StatelessWidget {
             rondas: 0,
             tipotorneo: '',
           );
-          Navigator.pushNamed(context, 'servicioedit');
+          Navigator.push(context, AnimationPageRoute(widget: ToneoEditar()));
         },
       ),
     );
