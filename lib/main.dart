@@ -5,7 +5,6 @@ import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:login/theme_model.dart';
 import 'routes/app_routes.dart';
 import 'services/services.dart';
-import 'package:provider/provider.dart';
 
 void main() => runApp(AppState());
 
@@ -13,7 +12,10 @@ class AppState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
-      providers: [ChangeNotifierProvider(create: (_) => ServicioService())],
+      providers: [
+        ChangeNotifierProvider(create: (_) => ServicioService()),
+        ChangeNotifierProvider(create: (_) => TorneoService())
+      ],
       child: MyApp(),
     );
   }

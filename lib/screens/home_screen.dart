@@ -3,6 +3,7 @@ import 'package:login/routes/AnimationPageRoute.dart';
 import 'package:login/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
+import 'package:login/screens/torneos_screen.dart';
 import 'package:provider/provider.dart';
 import '../main.dart';
 import '../theme_model.dart';
@@ -78,7 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
-                        context, AnimationPageRoute(widget: ServicioHome()));
+                        context, AnimationPageRoute(widget: TorneosHome()));
                   },
                   child: const card2(),
                 ),

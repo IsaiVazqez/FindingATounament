@@ -5,3 +5,5 @@ export 'package:login/widgets/servicio_image.dart';
 export 'package:login/widgets/numbers_widget.dart';
 export 'package:login/widgets/profile_widget.dart';
 export 'package:login/widgets/textfield_widget.dart';
+
+export 'package:login/widgets/torneo_card.dart';
