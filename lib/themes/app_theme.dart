@@ -14,9 +14,10 @@ class AppTheme {
   static final ThemeData darkTheme = ThemeData.dark().copyWith(
       primaryColor: Colors.amberAccent,
       appBarTheme: const AppBarTheme(
-          centerTitle: true,
-          elevation: globalElevation,
-          backgroundColor: primaryColor,
-          foregroundColor: Color.fromARGB(221, 19, 13, 15)),
+        centerTitle: true,
+        elevation: globalElevation,
+        backgroundColor: primaryColor,
+        foregroundColor: Color.fromARGB(221, 19, 13, 15),
+      ),
       scaffoldBackgroundColor: Colors.black87);
 }

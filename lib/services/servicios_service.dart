@@ -12,13 +12,16 @@ class ServicioService extends ChangeNotifier {
   bool isSaving = false;
   File? newPictureFile;
   late Servicio selectedServicio;
+  bool isDeleting = false;
 
   ServicioService() {
     this.loadServicios();
+    this.loadServicios2();
   }
 
   Future<List<Servicio>> loadServicios() async {
     this.isLoading = true;
+
     notifyListeners();
 
     final url = Uri.https(_baseUrl, 'products.json');
@@ -74,6 +77,36 @@ class ServicioService extends ChangeNotifier {
     this.servicio.add(servicio);
 
     return servicio.id!;
+  }
+
+  Future deleteProduct(Servicio servicio) async {
+    final url = Uri.https(_baseUrl, 'products/${servicio.id}.json');
+    final resp = await http.delete(url, body: servicio.toJson());
+
+    final index =
+        this.servicio.indexWhere((element) => element.id == servicio.id);
+    this.servicio[index] = servicio;
+  }
+
+  Future<List<Servicio>> loadServicios2() async {
+    this.isDeleting = false;
+
+    notifyListeners();
+
+    final url = Uri.https(_baseUrl, 'products.json');
+    final resp = await http.get(url);
+
+    final Map<String, dynamic> serviciosMap = json.decode(resp.body);
+
+    serviciosMap.forEach((key, value) {
+      final tempServicio = Servicio.fromMap(value);
+    });
+
+    this.isDeleting = false;
+
+    notifyListeners();
+
+    return this.servicio;
   }
 
   void updateSelectedProductImage(String path) {

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:login/providers/services_form_provider.dart';
 import 'package:login/providers/torneos_form_provider.dart';
 import 'package:login/services/services.dart';
 import 'package:login/userinterface/input_decorations.dart';
@@ -37,7 +36,7 @@ class _TorneosScreenBody extends StatelessWidget {
           children: [
             Stack(
               children: [
-                ServicioImage(url: torneoService.selectedTorneo.picture),
+                TorneoImage(url: torneoService.selectedTorneo.picture),
                 Positioned(
                     top: 60,
                     left: 20,
@@ -82,8 +81,6 @@ class _TorneosScreenBody extends StatelessWidget {
         onPressed: torneoService.isSaving
             ? null
             : () async {
-                if (!torneoForm.isValidForm()) return;
-
                 final String? imageUlr = await torneoService.uploadImage();
 
                 if (imageUlr != null) torneoForm.torneo.picture = imageUlr;

@@ -13,6 +13,7 @@ class ServicioHome extends StatelessWidget {
     final servicioService = Provider.of<ServicioService>(context);
 
     if (servicioService.isLoading) return LoadingScreen();
+    if (servicioService.isDeleting) return LoadingScreen();
 
     return Scaffold(
       appBar: AppBar(

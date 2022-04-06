@@ -38,13 +38,6 @@ class MyApp extends StatelessWidget {
                         centerTitle: true,
                         foregroundColor: Colors.white),
                     scaffoldBackgroundColor: Colors.black87,
-/*                     textTheme: TextTheme(
-                      bodyText1: TextStyle(),
-                      bodyText2: TextStyle(),
-                    ).apply(
-                      bodyColor: Colors.orange,
-                      displayColor: Colors.blue,
-                    ), */
                     textTheme: TextTheme(),
                   )
                 : ThemeData.light().copyWith(
@@ -52,13 +45,8 @@ class MyApp extends StatelessWidget {
                         centerTitle: true, backgroundColor: Colors.indigo),
                     scaffoldBackgroundColor: Colors.white),
             home: const SplashScreen(),
-            routes: AppRoutes
-                .getRoutes(), /*       initialRoute: Login.id,
-      routes: {
-        Login.id: (context) => Login(), */
+            routes: AppRoutes.getRoutes(),
           );
-          dividerColor:
-          Colors.black;
         },
       ),
     );

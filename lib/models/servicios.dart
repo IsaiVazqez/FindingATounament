@@ -25,7 +25,7 @@ class Servicio {
   String toJson() => json.encode(toMap());
 
   factory Servicio.fromMap(Map<String, dynamic> json) => Servicio(
-        discapacitados: json["Discapacitados"],
+        discapacitados: json["discapacitados"],
         horario: json["horario"],
         name: json["name"],
         personas: json["personas"],
@@ -33,7 +33,7 @@ class Servicio {
       );
 
   Map<String, dynamic> toMap() => {
-        "Discapacitados": discapacitados,
+        "discapacitados": discapacitados,
         "horario": horario,
         "name": name,
         "personas": personas,

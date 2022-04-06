@@ -52,7 +52,7 @@ class TorneoService extends ChangeNotifier {
   }
 
   Future<String> updateTorneos(Torneos torneo) async {
-    final url = Uri.https(_baseUrl, 'products/${torneo.id}.json');
+    final url = Uri.https(_baseUrl, 'torneos/${torneo.id}.json');
     final resp = await http.put(url, body: torneo.toJson());
     final decodedData = resp.body;
 
@@ -63,7 +63,7 @@ class TorneoService extends ChangeNotifier {
   }
 
   Future<String> CreateTorneos(Torneos torneo) async {
-    final url = Uri.https(_baseUrl, 'products.json');
+    final url = Uri.https(_baseUrl, 'torneos.json');
     final resp = await http.post(url, body: torneo.toJson());
     final decodedData = json.decode(resp.body);
 
