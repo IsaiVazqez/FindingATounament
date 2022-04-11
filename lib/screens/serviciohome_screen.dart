@@ -13,10 +13,13 @@ class ServicioHome extends StatelessWidget {
     final servicioService = Provider.of<ServicioService>(context);
 
     if (servicioService.isLoading) return LoadingScreen();
-    if (servicioService.isDeleting) return LoadingScreen();
 
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pushNamed(context, 'HomeScreen'),
+        ),
         title: Text('Servicios'),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
@@ -40,7 +43,7 @@ class ServicioHome extends StatelessWidget {
         backgroundColor: Colors.indigo,
         onPressed: () {
           servicioService.selectedServicio = new Servicio(
-              horario: '', discapacitados: false, name: '', personas: 0);
+              horario: '', discapacitados: false, name: 'Fútbol', personas: 0);
           Navigator.pushNamed(context, 'servicioedit');
         },
       ),

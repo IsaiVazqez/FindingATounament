@@ -16,7 +16,6 @@ class ServiceFormProvider extends ChangeNotifier {
 
   updateAvailability2(value) {
     print(value);
-    this.servicio.discapacitados = value;
     notifyListeners();
   }
 

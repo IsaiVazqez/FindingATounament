@@ -16,12 +16,10 @@ class ServicioService extends ChangeNotifier {
 
   ServicioService() {
     this.loadServicios();
-    this.loadServicios2();
   }
 
   Future<List<Servicio>> loadServicios() async {
     this.isLoading = true;
-
     notifyListeners();
 
     final url = Uri.https(_baseUrl, 'products.json');
@@ -36,7 +34,6 @@ class ServicioService extends ChangeNotifier {
     });
 
     this.isLoading = false;
-
     notifyListeners();
 
     return this.servicio;
@@ -51,8 +48,24 @@ class ServicioService extends ChangeNotifier {
     } else {
       await this.updateServicio(servicio);
     }
+
     isSaving = false;
     notifyListeners();
+  }
+
+  @override
+  Future deleteServicio(Servicio servicio) async {
+    await this.deleteProduct(servicio);
+    final url = Uri.https(_baseUrl, 'products.json');
+    final resp = await http.get(url);
+
+    final Map<String, dynamic> serviciosMap = json.decode(resp.body);
+
+    serviciosMap.forEach((key, value) {
+      final tempServicio = Servicio.fromMap(value);
+      tempServicio.id = key;
+      this.servicio.add(tempServicio);
+    });
   }
 
   Future<String> updateServicio(Servicio servicio) async {
@@ -79,16 +92,20 @@ class ServicioService extends ChangeNotifier {
     return servicio.id!;
   }
 
-  Future deleteProduct(Servicio servicio) async {
+  Future<String> deleteProduct(Servicio servicio) async {
     final url = Uri.https(_baseUrl, 'products/${servicio.id}.json');
     final resp = await http.delete(url, body: servicio.toJson());
+
+    final decodedData = json.decode(resp.body);
 
     final index =
         this.servicio.indexWhere((element) => element.id == servicio.id);
     this.servicio[index] = servicio;
+
+    return servicio.id!;
   }
 
-  Future<List<Servicio>> loadServicios2() async {
+/*   Future<List<Servicio>> loadServicios2() async {
     this.isDeleting = false;
 
     notifyListeners();
@@ -107,7 +124,7 @@ class ServicioService extends ChangeNotifier {
     notifyListeners();
 
     return this.servicio;
-  }
+  } */
 
   void updateSelectedProductImage(String path) {
     this.selectedServicio.picture = path;

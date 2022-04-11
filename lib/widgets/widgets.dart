@@ -8,3 +8,5 @@ export 'package:login/widgets/textfield_widget.dart';
 
 export 'package:login/widgets/torneo_card.dart';
 export 'package:login/widgets/torneo_image.dart';
+
+export 'package:login/widgets/expandible_servicio.dart';
