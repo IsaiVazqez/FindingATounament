@@ -7,7 +7,7 @@ import 'package:login/routes/app_routes.dart';
 
 import '../userinterface/input_decorations.dart';
 
-class LoginScreen extends StatelessWidget {
+class RegisterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,7 +21,7 @@ class LoginScreen extends StatelessWidget {
                 children: [
                   SizedBox(height: 10),
                   Text(
-                    'Login',
+                    'Crear Cuenta',
                     style: TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
@@ -35,19 +35,14 @@ class LoginScreen extends StatelessWidget {
               ),
               TextButton(
                 onPressed: () =>
-                    Navigator.pushReplacementNamed(context, 'Register'),
+                    Navigator.pushReplacementNamed(context, 'login'),
                 style: ButtonStyle(
                     overlayColor: MaterialStateProperty.all(
                         Colors.indigo.withOpacity(0.1)),
                     shape: MaterialStateProperty.all(StadiumBorder())),
-                child: Text(
-                  'Registrate',
-                  style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black87,
-                  ),
-                ),
+                child: Text('¿Ya tienes una cuenta?',
+                    style:
+                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
               ),
               SizedBox(
                 height: 50,

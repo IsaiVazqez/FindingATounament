@@ -53,19 +53,8 @@ class ServicioService extends ChangeNotifier {
     notifyListeners();
   }
 
-  @override
   Future deleteServicio(Servicio servicio) async {
     await this.deleteProduct(servicio);
-    final url = Uri.https(_baseUrl, 'products.json');
-    final resp = await http.get(url);
-
-    final Map<String, dynamic> serviciosMap = json.decode(resp.body);
-
-    serviciosMap.forEach((key, value) {
-      final tempServicio = Servicio.fromMap(value);
-      tempServicio.id = key;
-      this.servicio.add(tempServicio);
-    });
   }
 
   Future<String> updateServicio(Servicio servicio) async {
@@ -104,27 +93,6 @@ class ServicioService extends ChangeNotifier {
 
     return servicio.id!;
   }
-
-/*   Future<List<Servicio>> loadServicios2() async {
-    this.isDeleting = false;
-
-    notifyListeners();
-
-    final url = Uri.https(_baseUrl, 'products.json');
-    final resp = await http.get(url);
-
-    final Map<String, dynamic> serviciosMap = json.decode(resp.body);
-
-    serviciosMap.forEach((key, value) {
-      final tempServicio = Servicio.fromMap(value);
-    });
-
-    this.isDeleting = false;
-
-    notifyListeners();
-
-    return this.servicio;
-  } */
 
   void updateSelectedProductImage(String path) {
     this.selectedServicio.picture = path;

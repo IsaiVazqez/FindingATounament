@@ -105,15 +105,12 @@ class _ServicesScreenBody extends StatelessWidget {
                 : const Icon(
                     Icons.delete_outline_rounded,
                   ),
-            onPressed: servicioService.isDeleting
-                ? null
-                : () async {
-                    if (!servicioForm.isValidForm()) return;
-                    await servicioService.deleteServicio(servicioForm.servicio);
-
-                    Navigator.pushReplacementNamed(
-                        context, AppRoutes.serviciohome);
-                  },
+            onPressed: () async {
+              await servicioService.deleteServicio(servicioForm.servicio);
+              servicioService.servicio.clear();
+              servicioService.loadServicios();
+              Navigator.pushReplacementNamed(context, AppRoutes.serviciohome);
+            },
           ),
         ],
       ),
