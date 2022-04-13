@@ -190,20 +190,6 @@ class _ServicioForm extends StatelessWidget {
                     .toList(),
                 onChanged: (items) => servicio.name = items!,
               ),
-
-/*               TextFormField(
-                initialValue: servicio.name,
-                style: TextStyle(color: Colors.black),
-                onChanged: (value) => servicio.name = value,
-                validator: (value) {
-                  if (value == null || value.length < 1)
-                    return 'El nombre es obligatoio';
-                },
-                decoration: InputDecorations.authInputDecoration(
-                  hintText: 'Nombre del Sevicio',
-                  labelText: 'Nombre',
-                ),
-              ), */
               SizedBox(height: 30),
               TextFormField(
                 initialValue: servicio.horario,

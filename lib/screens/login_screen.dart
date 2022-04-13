@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:login/providers/login_form_provider.dart';
-import 'package:login/screens/screens.dart';
 import 'package:login/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:login/routes/app_routes.dart';
@@ -92,7 +91,7 @@ class _LoginForm extends StatelessWidget {
               SizedBox(height: 30),
               TextFormField(
                 autocorrect: false,
-                obscureText: false,
+                obscureText: true,
                 keyboardType: TextInputType.emailAddress,
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecorations.authInputDecoration(
