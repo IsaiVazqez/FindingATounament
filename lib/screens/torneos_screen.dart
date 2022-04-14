@@ -40,6 +40,7 @@ class TorneosHome extends StatelessWidget {
         backgroundColor: Colors.indigo,
         onPressed: () {
           torneoService.selectedTorneo = new Torneos(
+            fecha: DateTime.now(),
             disciplina: '',
             disponibilidad: false,
             equipos: 0,
