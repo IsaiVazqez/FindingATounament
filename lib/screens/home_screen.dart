@@ -1,11 +1,8 @@
-import 'package:login/models/item_menu.dart';
 import 'package:login/routes/AnimationPageRoute.dart';
 import 'package:login/routes/app_routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:login/screens/torneos_screen.dart';
 import 'package:provider/provider.dart';
-import '../main.dart';
 import '../theme_model.dart';
 import 'serviciohome_screen.dart';
 import 'package:google_nav_bar/google_nav_bar.dart' show GButton, GNav;
