@@ -1,3 +1,5 @@
+import 'package:login/screens/register_screen.dart';
+
 import '../models/item_menu.dart';
 import '../screens/screens.dart';
 import 'package:flutter/material.dart';
@@ -9,7 +11,9 @@ class AppRoutes {
   static const String serviciohome = 'servicios';
   static const String profileRoute = 'profile';
   static const String carrousel = 'slider';
-  static const String regClub = 'regClubs';
+  static const String torneosedit = 'torneosedit';
+  static const String serviciosloading = 'loading';
+  static const String registerRoute = 'Register';
 
   static final menuOptions = <ItemMenu>[
     ItemMenu(
@@ -28,6 +32,16 @@ class AppRoutes {
       screen: LoginScreen(),
     ),
     ItemMenu(
+      label: 'loading',
+      route: serviciosloading,
+      screen: LoadingScreen(),
+    ),
+    ItemMenu(
+      label: 'torneosedit',
+      route: torneosedit,
+      screen: ToneoEditar(),
+    ),
+    ItemMenu(
       label: 'servicios',
       route: serviciohome,
       screen: ServicioHome(),
@@ -37,11 +51,11 @@ class AppRoutes {
       route: profileRoute,
       screen: const ProfilePage(),
     ),
-/*     ItemMenu(
-      label: 'Perfil',
-      route: profileRoute,
-      screen: const ProfilePage(),
-    ), */
+    ItemMenu(
+      label: 'Register',
+      route: registerRoute,
+      screen: RegisterScreen(),
+    ),
   ];
 
   static Map<String, Widget Function(BuildContext)> getRoutes() {

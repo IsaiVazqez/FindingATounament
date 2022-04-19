@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
             shape: const RoundedRectangleBorder(
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(10))),
-            /* automaticallyImplyLeading: false, */
+            automaticallyImplyLeading: false,
             title: const Text(
               'Finding A Tournament',
             ),

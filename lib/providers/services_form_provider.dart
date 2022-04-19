@@ -14,6 +14,11 @@ class ServiceFormProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  updateAvailability2(value) {
+    print(value);
+    notifyListeners();
+  }
+
   bool isValidForm() {
     print(servicio.name);
     print(servicio.personas);

@@ -7,6 +7,7 @@ class Torneos {
     required this.disciplina,
     required this.disponibilidad,
     required this.equipos,
+    required this.fecha,
     this.picture,
     this.id,
     required this.rondas,
@@ -17,6 +18,7 @@ class Torneos {
   int costo;
   String disciplina;
   bool disponibilidad;
+  DateTime fecha;
   int equipos;
   String? picture;
   int rondas;
@@ -31,6 +33,7 @@ class Torneos {
         bases: json["bases"],
         costo: json["costo"],
         disciplina: json["disciplina"],
+        fecha: DateTime.parse(json["Fecha"]),
         disponibilidad: json["disponibilidad"],
         equipos: json["equipos"],
         picture: json["picture"],
@@ -42,6 +45,8 @@ class Torneos {
         "bases": bases,
         "costo": costo,
         "disciplina": disciplina,
+        "Fecha":
+            "${fecha.year.toString().padLeft(4, '0')}-${fecha.month.toString().padLeft(2, '0')}-${fecha.day.toString().padLeft(2, '0')}",
         "disponibilidad": disponibilidad,
         "equipos": equipos,
         "picture": picture,
@@ -54,6 +59,7 @@ class Torneos {
         costo: this.costo,
         picture: this.picture,
         equipos: this.equipos,
+        fecha: this.fecha,
         tipotorneo: this.tipotorneo,
         bases: this.bases,
         disciplina: this.disciplina,

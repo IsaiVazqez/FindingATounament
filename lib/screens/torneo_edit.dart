@@ -1,49 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:login/providers/services_form_provider.dart';
-import 'package:login/routes/app_routes.dart';
+import 'package:login/providers/torneos_form_provider.dart';
 import 'package:login/services/services.dart';
 import 'package:login/userinterface/input_decorations.dart';
 import 'package:login/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:image_picker/image_picker.dart';
 
-class ServicioScreen extends StatelessWidget {
+class ToneoEditar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final servicioService = Provider.of<ServicioService>(context);
+    final torneoService = Provider.of<TorneoService>(context);
 
     return ChangeNotifierProvider(
-      create: (_) => ServiceFormProvider(servicioService.selectedServicio),
-      child: _ServicesScreenBody(servicioService: servicioService),
+      create: (_) => TorneoFormProvider(torneoService.selectedTorneo),
+      child: _TorneosScreenBody(torneoService: torneoService),
     );
   }
 }
 
-class _ServicesScreenBody extends StatelessWidget {
-  const _ServicesScreenBody({
+class _TorneosScreenBody extends StatelessWidget {
+  const _TorneosScreenBody({
     Key? key,
-    required this.servicioService,
+    required this.torneoService,
   }) : super(key: key);
 
-  final ServicioService servicioService;
+  final TorneoService torneoService;
 
   @override
   Widget build(BuildContext context) {
-    final servicioForm = Provider.of<ServiceFormProvider>(context);
+    final torneoForm = Provider.of<TorneoFormProvider>(context);
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
             Stack(
               children: [
-                ServicioImage(url: servicioService.selectedServicio.picture),
+                TorneoImage(url: torneoService.selectedTorneo.picture),
                 Positioned(
                     top: 60,
                     left: 20,
                     child: IconButton(
                       onPressed: () => Navigator.of(context).pop(),
-                      icon: const Icon(Icons.arrow_back_ios_new,
+                      icon: Icon(Icons.arrow_back_ios_new,
                           size: 40, color: Colors.white),
                     )),
                 Positioned(
@@ -58,8 +57,8 @@ class _ServicesScreenBody extends StatelessWidget {
                           print('No selecciono una imagén');
                           return;
                         }
-                        servicioService
-                            .updateSelectedProductImage(pickedFile.path);
+                        torneoService
+                            .updateSelectedTorneoImage(pickedFile.path);
                       },
                       icon: Icon(Icons.camera_alt_outlined,
                           size: 40, color: Colors.white),
@@ -71,48 +70,22 @@ class _ServicesScreenBody extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButton: ExpandableFab(
-        distance: 112.0,
-        children: [
-          FloatingActionButton(
-            backgroundColor: Colors.indigo,
-            child: servicioService.isSaving
-                ? const CircularProgressIndicator(
-                    color: Colors.white,
-                  )
-                : const Icon(
-                    Icons.save_outlined,
-                  ),
-            onPressed: servicioService.isSaving
-                ? null
-                : () async {
-                    if (!servicioForm.isValidForm()) return;
+      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      floatingActionButton: FloatingActionButton(
+        child: torneoService.isSaving
+            ? CircularProgressIndicator(color: Colors.white)
+            : Icon(
+                Icons.save_outlined,
+              ),
+        backgroundColor: Colors.indigo,
+        onPressed: torneoService.isSaving
+            ? null
+            : () async {
+                final String? imageUlr = await torneoService.uploadImage();
 
-                    final String? imageUlr =
-                        await servicioService.uploadImage();
-
-                    if (imageUlr != null)
-                      servicioForm.servicio.picture = imageUlr;
-                    await servicioService
-                        .saveOrCreateServicio(servicioForm.servicio);
-                    Navigator.pushNamed(context, 'servicios');
-                  },
-          ),
-          FloatingActionButton(
-            backgroundColor: Colors.indigo,
-            child: servicioService.isDeleting
-                ? const CircularProgressIndicator(color: Colors.white)
-                : const Icon(
-                    Icons.delete_outline_rounded,
-                  ),
-            onPressed: () async {
-              await servicioService.deleteServicio(servicioForm.servicio);
-              servicioService.servicio.clear();
-              servicioService.loadServicios();
-              Navigator.pushReplacementNamed(context, AppRoutes.serviciohome);
-            },
-          ),
-        ],
+                if (imageUlr != null) torneoForm.torneo.picture = imageUlr;
+                await torneoService.saveOrCreateTorneos(torneoForm.torneo);
+              },
       ),
     );
   }
@@ -121,8 +94,8 @@ class _ServicesScreenBody extends StatelessWidget {
 class _ServicioForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final servicioForm = Provider.of<ServiceFormProvider>(context);
-    final servicio = servicioForm.servicio;
+    final torneoForm = Provider.of<TorneoFormProvider>(context);
+    final torneo = torneoForm.torneo;
     List<String?> items = [
       'Fútbol',
       'Béisbol',
@@ -149,7 +122,7 @@ class _ServicioForm extends StatelessWidget {
         width: double.infinity,
         decoration: _buildBoxDecoration(),
         child: Form(
-          key: servicioForm.formKey,
+          key: torneoForm.formKey,
 /*           autovalidateMode: AutovalidateMode.onUserInteraction,
  */
           child: Column(
@@ -169,11 +142,13 @@ class _ServicioForm extends StatelessWidget {
                           BorderSide(color: Colors.deepPurple, width: 2)),
                   labelStyle: const TextStyle(color: Colors.grey),
                 ),
-                value: servicio.name.isEmpty ? 'Fútbol' : servicio.name,
+                value: torneo.disciplina.isEmpty ? 'Fútbol' : torneo.disciplina,
                 focusColor: Colors.white,
                 iconDisabledColor: Colors.black,
                 iconEnabledColor: Colors.black,
                 dropdownColor: Colors.white,
+
+                // Down Arrow Icon
                 icon: const Icon(Icons.keyboard_arrow_down),
                 items: items
                     .map((
@@ -188,31 +163,37 @@ class _ServicioForm extends StatelessWidget {
                           ),
                         ))
                     .toList(),
-                onChanged: (items) => servicio.name = items!,
+
+                onChanged: (items) => torneo.disciplina = items!,
               ),
               SizedBox(height: 30),
               TextFormField(
-                initialValue: servicio.horario,
+                initialValue: torneo.bases,
                 style: TextStyle(color: Colors.black),
-                onChanged: (value) => servicio.horario = value,
+                onChanged: (value) => torneo.bases = value,
                 validator: (value) {
                   if (value == null || value.length < 1)
-                    return 'El horario es obligatoio';
+                    return 'Las bases son obligatorias';
                 },
                 decoration: InputDecorations.authInputDecoration(
-                    hintText: 'Horario del servicio', labelText: 'Horarios'),
+                    hintText: 'Round Robin', labelText: 'Bases del torneo'),
               ),
               SizedBox(height: 30),
               TextFormField(
-                initialValue: servicio.personas.toString() == '0'
+                initialValue: torneo.equipos.toString() == '0'
                     ? null
-                    : '${servicio.personas}',
+                    : '${torneo.equipos}',
                 inputFormatters: [
                   FilteringTextInputFormatter.allow(
                       RegExp(r'^(\d+)?\.?\d{0,2}'))
                 ],
                 onChanged: (value) {
-                  servicio.personas = int.parse(value);
+                  // if (double.tryParse(value) == null) {
+                  //   servicio.personas = 0;
+                  // } else {
+
+                  // }
+                  torneo.equipos = int.parse(value);
                 },
                 keyboardType: TextInputType.number,
                 validator: (value) {
@@ -223,18 +204,81 @@ class _ServicioForm extends StatelessWidget {
                 },
                 style: TextStyle(color: Colors.black),
                 decoration: InputDecorations.authInputDecoration(
-                    hintText: 'Capacidad de personas',
-                    labelText: 'Máximo de personas'),
+                    hintText: 'Capacidad de equipos',
+                    labelText: 'Máximo de equipos'),
+              ),
+              SizedBox(height: 30),
+              TextFormField(
+                initialValue:
+                    torneo.rondas.toString() == '0' ? null : '${torneo.rondas}',
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                      RegExp(r'^(\d+)?\.?\d{0,2}'))
+                ],
+                onChanged: (value) {
+                  // if (double.tryParse(value) == null) {
+                  //   servicio.personas = 0;
+                  // } else {
+
+                  // }
+                  torneo.rondas = int.parse(value);
+                },
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  final n = num.tryParse(value!);
+                  if (n == 0 || n == null) {
+                    return 'El numero de rondas debe de ser mayor a 0';
+                  }
+                },
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecorations.authInputDecoration(
+                    hintText: 'Cantidad de Rondas',
+                    labelText: 'Cantidad de Rondas'),
+              ),
+              SizedBox(height: 30),
+              TextFormField(
+                initialValue:
+                    torneo.costo.toString() == '0' ? null : '${torneo.costo}',
+                inputFormatters: [
+                  FilteringTextInputFormatter.allow(
+                      RegExp(r'^(\d+)?\.?\d{0,2}'))
+                ],
+                onChanged: (value) {
+                  torneo.costo = int.parse(value);
+                },
+                keyboardType: TextInputType.number,
+                validator: (value) {
+                  final n = num.tryParse(value!);
+                  if (n == 0 || n == null) {
+                    return 'El costo debe ser mayor a 0';
+                  }
+                },
+                style: TextStyle(color: Colors.black),
+                decoration: InputDecorations.authInputDecoration(
+                    hintText: 'Precio por equipo',
+                    labelText: 'Precio por equipo'),
+              ),
+              SizedBox(height: 30),
+              TextFormField(
+                initialValue: torneo.tipotorneo,
+                style: TextStyle(color: Colors.black),
+                onChanged: (value) => torneo.tipotorneo = value,
+                validator: (value) {
+                  if (value == null || value.length < 0)
+                    return 'El tipo de torneo es obligatorio';
+                },
+                decoration: InputDecorations.authInputDecoration(
+                    hintText: 'Una eliminación', labelText: 'Tipo de torneo'),
               ),
               SizedBox(height: 30),
               SwitchListTile.adaptive(
-                  value: servicio.discapacitados,
+                  value: torneo.disponibilidad,
                   title: Text(
-                    'Adecuado para personas con movilidad reducida',
+                    'Disponibilidad de Equipos',
                     style: TextStyle(color: Colors.black),
                   ),
                   activeColor: Colors.indigo,
-                  onChanged: servicioForm.updateAvailability),
+                  onChanged: torneoForm.updateAvailability),
               SizedBox(height: 30),
             ],
           ),

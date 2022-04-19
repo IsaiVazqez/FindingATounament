@@ -12,6 +12,7 @@ class ServicioService extends ChangeNotifier {
   bool isSaving = false;
   File? newPictureFile;
   late Servicio selectedServicio;
+  bool isDeleting = false;
 
   ServicioService() {
     this.loadServicios();
@@ -33,7 +34,6 @@ class ServicioService extends ChangeNotifier {
     });
 
     this.isLoading = false;
-
     notifyListeners();
 
     return this.servicio;
@@ -48,8 +48,13 @@ class ServicioService extends ChangeNotifier {
     } else {
       await this.updateServicio(servicio);
     }
+
     isSaving = false;
     notifyListeners();
+  }
+
+  Future deleteServicio(Servicio servicio) async {
+    await this.deleteProduct(servicio);
   }
 
   Future<String> updateServicio(Servicio servicio) async {
@@ -72,6 +77,19 @@ class ServicioService extends ChangeNotifier {
     servicio.id = decodedData['name'];
 
     this.servicio.add(servicio);
+
+    return servicio.id!;
+  }
+
+  Future<String> deleteProduct(Servicio servicio) async {
+    final url = Uri.https(_baseUrl, 'products/${servicio.id}.json');
+    final resp = await http.delete(url, body: servicio.toJson());
+
+    final decodedData = json.decode(resp.body);
+
+    final index =
+        this.servicio.indexWhere((element) => element.id == servicio.id);
+    this.servicio[index] = servicio;
 
     return servicio.id!;
   }
