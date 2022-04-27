@@ -8,6 +8,7 @@ import '../themes/user_preferences.dart';
 import 'package:login/widgets/widgets.dart';
 import 'package:login/screens/screens.dart';
 import 'package:location/location.dart';
+import 'package:login/models/user.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key? key}) : super(key: key);

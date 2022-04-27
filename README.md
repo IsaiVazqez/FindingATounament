@@ -1,5 +1,6 @@
 # Proyecto pal profe Joel
-Esta en la versión 0.5 el día 28 de marzo
+Esta en la versión 0.5 el día 28 de abil
+El cuál cuenta con una vista de Servicios que un usuario puede almacenar, torneos y validación de usuario
 
 A new Flutter project.
 
