@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/providers/login_form_provider.dart';
+import 'package:login/services/services.dart';
 import 'package:login/widgets/widgets.dart';
 import 'package:provider/provider.dart';
 import 'package:login/routes/app_routes.dart';
@@ -14,22 +15,22 @@ class LoginScreen extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              SizedBox(height: 200),
+              const SizedBox(height: 200),
               CardContainer(
                   child: Column(
                 children: [
-                  SizedBox(height: 10),
-                  Text(
+                  const SizedBox(height: 10),
+                  const Text(
                     'Login',
-                    style: TextStyle(
+                    style: const TextStyle(
                         color: Colors.black, fontWeight: FontWeight.bold),
                   ),
-                  SizedBox(height: 30),
+                  const SizedBox(height: 30),
                   ChangeNotifierProvider(
                       create: (_) => LoginFormProvider(), child: _LoginForm())
                 ],
               )),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
               TextButton(
@@ -38,8 +39,8 @@ class LoginScreen extends StatelessWidget {
                 style: ButtonStyle(
                     overlayColor: MaterialStateProperty.all(
                         Colors.indigo.withOpacity(0.1)),
-                    shape: MaterialStateProperty.all(StadiumBorder())),
-                child: Text(
+                    shape: MaterialStateProperty.all(const StadiumBorder())),
+                child: const Text(
                   'Registrate',
                   style: TextStyle(
                     fontSize: 18,
@@ -48,7 +49,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: 50,
               ),
             ],
@@ -72,7 +73,7 @@ class _LoginForm extends StatelessWidget {
               TextFormField(
                 autocorrect: false,
                 keyboardType: TextInputType.emailAddress,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 decoration: InputDecorations.authInputDecoration(
                     hintText: 'isai@gmail.com',
                     labelText: 'Correo Electronico',
@@ -88,12 +89,12 @@ class _LoginForm extends StatelessWidget {
                       : 'El valor ingresado no es un correo';
                 },
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               TextFormField(
                 autocorrect: false,
                 obscureText: true,
                 keyboardType: TextInputType.emailAddress,
-                style: TextStyle(color: Colors.black),
+                style: const TextStyle(color: Colors.black),
                 decoration: InputDecorations.authInputDecoration(
                     hintText: '********',
                     labelText: 'Contraseña',
@@ -105,7 +106,7 @@ class _LoginForm extends StatelessWidget {
                       : 'La contraseña debe er de 6 caracteres';
                 },
               ),
-              SizedBox(height: 30),
+              const SizedBox(height: 30),
               MaterialButton(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10)),
@@ -113,25 +114,33 @@ class _LoginForm extends StatelessWidget {
                 elevation: 0,
                 color: Colors.deepPurple,
                 child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 80, vertical: 15),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 80, vertical: 15),
                     child: Text(
                       loginForm.isLoading ? 'Espere' : 'Ingresar',
-                      style: TextStyle(color: Colors.white),
+                      style: const TextStyle(color: Colors.white),
                     )),
                 onPressed: loginForm.isLoading
                     ? null
                     : () async {
                         FocusScope.of(context).unfocus();
+                        final authService =
+                            Provider.of<AuthService>(context, listen: false);
 
-                        if (loginForm.isValidForm()) return;
+                        if (!loginForm.isValidForm()) return;
 
                         loginForm.isLoading = true;
-                        await Future.delayed(Duration(seconds: 2));
 
-                        loginForm.isLoading = false;
+                        final String? errorMesage = await authService.login(
+                            loginForm.email, loginForm.password);
 
-                        Navigator.pushReplacementNamed(
-                            context, AppRoutes.initialRoute);
+                        if (errorMesage == null) {
+                          Navigator.pushReplacementNamed(
+                              context, AppRoutes.initialRoute);
+                        } else {
+                          print(errorMesage);
+                          loginForm.isLoading = false;
+                        }
                       },
               ),
             ],

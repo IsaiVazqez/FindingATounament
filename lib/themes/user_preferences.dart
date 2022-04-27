@@ -3,7 +3,7 @@ import '../models/user.dart';
 class UserPreferences {
   static const myUser = User(
     imagePath:
-        'https://scontent.fmid2-1.fna.fbcdn.net/v/t31.18172-8/18422255_1702364996444779_2407569636033793668_o.jpg?_nc_cat=107&ccb=1-5&_nc_sid=09cbfe&_nc_ohc=d5zbErRwOC8AX-FOEgS&_nc_ht=scontent.fmid2-1.fna&oh=00_AT-9_ECTerESza3tY5L0B6HTfRWe1GZrelJjfqIb_GRNyA&oe=624BF22D',
+        'https://clubnatacionmerida.com/wp-content/uploads/2017/09/LOGO-png.png',
     name: 'Kukulkan',
     number: '9992283483',
     adress: 'Calle 64 Avenida Kukulkan por 107 y 109 Número 695F',
