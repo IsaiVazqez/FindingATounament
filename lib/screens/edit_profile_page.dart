@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:login/themes/user_preferencces.dart';
 import 'package:login/widgets/widgets.dart';
 import '../models/user.dart';
-import '../themes/user_preferences.dart';
 
 class EditProfilePage extends StatefulWidget {
   @override
