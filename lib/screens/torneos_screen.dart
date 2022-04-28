@@ -17,7 +17,11 @@ class TorneosHome extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('Torneos'),
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pushNamed(context, 'HomeScreen'),
+        ),
+        title: Text('Mis Torneos'),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
       ),

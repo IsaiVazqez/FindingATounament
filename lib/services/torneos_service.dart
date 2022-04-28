@@ -14,6 +14,7 @@ class TorneoService extends ChangeNotifier {
   bool isSaving = false;
   File? newPictureFile;
   late Torneos selectedTorneo;
+  bool isDeleting = false;
   final storage = new FlutterSecureStorage();
 
   TorneoService() {
@@ -53,6 +54,10 @@ class TorneoService extends ChangeNotifier {
     }
     isSaving = false;
     notifyListeners();
+
+    Future deleteTorneo(Torneos torneo) async {
+      await this.deleteTorneoU(torneo);
+    }
   }
 
   Future<String> updateTorneos(Torneos torneo) async {
@@ -66,8 +71,22 @@ class TorneoService extends ChangeNotifier {
     return torneo.id!;
   }
 
+  Future<String> deleteTorneoU(Torneos torneo) async {
+    final url = Uri.https(_baseUrl, 'torneos/${torneo.id}.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
+    final resp = await http.delete(url, body: torneo.toJson());
+
+    final decodedData = json.decode(resp.body);
+
+    final index = this.torneo.indexWhere((element) => element.id == torneo.id);
+    this.torneo[index] = torneo;
+
+    return torneo.id!;
+  }
+
   Future<String> CreateTorneos(Torneos torneo) async {
-    final url = Uri.https(_baseUrl, 'torneos.json');
+    final url = Uri.https(_baseUrl, 'torneos.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final resp = await http.post(url, body: torneo.toJson());
     final decodedData = json.decode(resp.body);
 

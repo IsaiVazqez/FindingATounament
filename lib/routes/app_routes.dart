@@ -12,6 +12,8 @@ class AppRoutes {
   static const String profileRoute = 'profile';
   static const String carrousel = 'slider';
   static const String torneosedit = 'torneosedit';
+  static const String torneocasa = 'torneohome';
+
   static const String serviciosloading = 'loading';
   static const String registerRoute = 'Register';
   static const String checkRoute = 'Check';
@@ -42,6 +44,11 @@ class AppRoutes {
       label: 'torneosedit',
       route: torneosedit,
       screen: ToneoEditar(),
+    ),
+    ItemMenu(
+      label: 'torneohome',
+      route: torneocasa,
+      screen: TorneosHome(),
     ),
     ItemMenu(
       label: 'servicios',

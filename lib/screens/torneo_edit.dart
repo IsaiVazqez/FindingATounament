@@ -70,7 +70,7 @@ class _TorneosScreenBody extends StatelessWidget {
           ],
         ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
+      /*  floatingActionButtonLocation: FloatingActionButtonLocation.endDocked,
       floatingActionButton: FloatingActionButton(
         child: torneoService.isSaving
             ? CircularProgressIndicator(color: Colors.white)
@@ -86,6 +86,48 @@ class _TorneosScreenBody extends StatelessWidget {
                 if (imageUlr != null) torneoForm.torneo.picture = imageUlr;
                 await torneoService.saveOrCreateTorneos(torneoForm.torneo);
               },
+      ), */
+      floatingActionButton: ExpandableFab(
+        distance: 112.0,
+        children: [
+          FloatingActionButton(
+            heroTag: "btn3",
+            backgroundColor: Colors.indigo,
+            child: torneoService.isSaving
+                ? const CircularProgressIndicator(
+                    color: Colors.white,
+                  )
+                : const Icon(
+                    Icons.save_outlined,
+                  ),
+            onPressed: torneoService.isSaving
+                ? null
+                : () async {
+                    if (!torneoForm.isValidForm()) return;
+
+                    final String? imageUlr = await torneoService.uploadImage();
+
+                    if (imageUlr != null) torneoForm.torneo.picture = imageUlr;
+                    await torneoService.saveOrCreateTorneos(torneoForm.torneo);
+                    Navigator.pushNamed(context, 'torneohome');
+                  },
+          ),
+          FloatingActionButton(
+            heroTag: "btn4",
+            backgroundColor: Colors.indigo,
+            child: torneoService.isDeleting
+                ? const CircularProgressIndicator(color: Colors.white)
+                : const Icon(
+                    Icons.delete_outline_rounded,
+                  ),
+            onPressed: () async {
+              await torneoService.deleteTorneoU(torneoForm.torneo);
+              torneoService.torneo.clear();
+              torneoService.loadTorneos();
+              Navigator.pushNamed(context, 'torneohome');
+            },
+          ),
+        ],
       ),
     );
   }

@@ -20,7 +20,7 @@ class ServicioHome extends StatelessWidget {
           icon: Icon(Icons.arrow_back),
           onPressed: () => Navigator.pushNamed(context, 'HomeScreen'),
         ),
-        title: Text('Servicios'),
+        title: Text('Mis Servicios'),
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
       ),
