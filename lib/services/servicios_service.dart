@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:login/models/models.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,6 +14,7 @@ class ServicioService extends ChangeNotifier {
   File? newPictureFile;
   late Servicio selectedServicio;
   bool isDeleting = false;
+  final storage = new FlutterSecureStorage();
 
   ServicioService() {
     this.loadServicios();
@@ -22,7 +24,8 @@ class ServicioService extends ChangeNotifier {
     this.isLoading = true;
     notifyListeners();
 
-    final url = Uri.https(_baseUrl, 'products.json');
+    final url = Uri.https(_baseUrl, 'products.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final resp = await http.get(url);
 
     final Map<String, dynamic> serviciosMap = json.decode(resp.body);

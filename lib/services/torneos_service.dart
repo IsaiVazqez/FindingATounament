@@ -5,7 +5,7 @@ import 'package:login/models/models.dart';
 import 'package:http/http.dart' as http;
 
 class TorneoService extends ChangeNotifier {
-  final String _baseUrl = 'fluttertrone-default-rtdb.firebaseio.com';
+  final String _baseUrl = 'flutter-varios-87503-default-rtdb.firebaseio.com';
 
   final List<Torneos> torneo = [];
   bool isLoading = true;

@@ -14,6 +14,8 @@ class AppRoutes {
   static const String torneosedit = 'torneosedit';
   static const String serviciosloading = 'loading';
   static const String registerRoute = 'Register';
+  static const String checkRoute = 'Check';
+  static const String login = 'login';
 
   static final menuOptions = <ItemMenu>[
     ItemMenu(
@@ -55,6 +57,16 @@ class AppRoutes {
       label: 'Register',
       route: registerRoute,
       screen: RegisterScreen(),
+    ),
+    ItemMenu(
+      label: 'Check',
+      route: checkRoute,
+      screen: CheckAuthScreen(),
+    ),
+    ItemMenu(
+      label: 'login',
+      route: login,
+      screen: LoginScreen(),
     ),
   ];
 

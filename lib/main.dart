@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         builder: (context, ThemeModel themeNotifier, child) {
           return MaterialApp(
             title: 'Material App',
+            scaffoldMessengerKey: NotificacionsService.messengerKey,
             debugShowCheckedModeBanner: false,
             theme: themeNotifier.isDark
                 ? ThemeData.dark().copyWith(
@@ -39,7 +40,7 @@ class MyApp extends StatelessWidget {
                         centerTitle: true,
                         foregroundColor: Colors.white),
                     scaffoldBackgroundColor: Colors.black87,
-                    textTheme: TextTheme(),
+                    textTheme: const TextTheme(),
                   )
                 : ThemeData.light().copyWith(
                     appBarTheme: const AppBarTheme(
@@ -60,7 +61,7 @@ class SplashScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      splash: "assets/Comp 1.gif",
+      splash: "assets/logogiff.gif",
       backgroundColor: Colors.black,
       nextScreen: LoginScreen(),
       splashIconSize: 400,

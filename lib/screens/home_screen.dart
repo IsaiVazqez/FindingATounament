@@ -2,6 +2,7 @@ import 'package:login/routes/AnimationPageRoute.dart';
 import 'package:login/routes/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:login/screens/torneos_screen.dart';
+import 'package:login/services/auth_service.dart';
 import 'package:provider/provider.dart';
 import '../theme_model.dart';
 import 'serviciohome_screen.dart';
@@ -18,7 +19,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int home = 0;
   @override
   Widget build(BuildContext context) {
-    final menuOptions = AppRoutes.menuOptions;
+    final authService = Provider.of<AuthService>(context, listen: false);
     return Consumer<ThemeModel>(
       builder: (context, ThemeModel themeNotifier, child) {
         return Scaffold(
@@ -49,6 +50,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         : themeNotifier.isDark = true;
                   })
             ],
+            leading: IconButton(
+                icon: Icon(Icons.login_outlined),
+                onPressed: () {
+                  authService.logout();
+                  Navigator.pushReplacementNamed(context, 'login');
+                }),
           ),
           body: SafeArea(
             child: ListView(
@@ -108,12 +115,12 @@ class _HomeScreenState extends State<HomeScreen> {
                   duration: const Duration(milliseconds: 400),
                   tabBackgroundColor: Colors.white,
                   color: Colors.black,
-                  tabs: [
-                    const GButton(
+                  tabs: const [
+                    GButton(
                       icon: LineIcons.home,
                       text: 'Home',
                     ),
-                    const GButton(
+                    GButton(
                       icon: LineIcons.user,
                       text: 'Profile',
                     ),

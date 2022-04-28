@@ -18,8 +18,8 @@ class Torneos {
   int costo;
   String disciplina;
   bool disponibilidad;
-  DateTime fecha;
   int equipos;
+  DateTime fecha;
   String? picture;
   int rondas;
   String tipotorneo;
@@ -33,9 +33,9 @@ class Torneos {
         bases: json["bases"],
         costo: json["costo"],
         disciplina: json["disciplina"],
-        fecha: DateTime.parse(json["Fecha"]),
         disponibilidad: json["disponibilidad"],
         equipos: json["equipos"],
+        fecha: DateTime.parse(json["fecha"]),
         picture: json["picture"],
         rondas: json["rondas"],
         tipotorneo: json["tipotorneo"],
@@ -45,25 +45,25 @@ class Torneos {
         "bases": bases,
         "costo": costo,
         "disciplina": disciplina,
-        "Fecha":
-            "${fecha.year.toString().padLeft(4, '0')}-${fecha.month.toString().padLeft(2, '0')}-${fecha.day.toString().padLeft(2, '0')}",
         "disponibilidad": disponibilidad,
         "equipos": equipos,
+        "fecha":
+            "${fecha.year.toString().padLeft(4, '0')}-${fecha.month.toString().padLeft(2, '0')}-${fecha.day.toString().padLeft(2, '0')}",
         "picture": picture,
         "rondas": rondas,
         "tipotorneo": tipotorneo,
       };
 
   Torneos copy() => Torneos(
-        disponibilidad: this.disponibilidad,
+        bases: this.bases,
         costo: this.costo,
-        picture: this.picture,
+        disciplina: this.disciplina,
+        disponibilidad: this.disponibilidad,
         equipos: this.equipos,
         fecha: this.fecha,
-        tipotorneo: this.tipotorneo,
-        bases: this.bases,
-        disciplina: this.disciplina,
+        picture: this.picture,
         rondas: this.rondas,
+        tipotorneo: this.tipotorneo,
         id: this.id,
       );
 }

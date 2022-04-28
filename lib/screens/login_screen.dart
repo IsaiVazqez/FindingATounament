@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:login/providers/login_form_provider.dart';
+import 'package:login/services/notificacion_services.dart';
 import 'package:login/services/services.dart';
 import 'package:login/widgets/widgets.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +46,6 @@ class LoginScreen extends StatelessWidget {
                   style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
                   ),
                 ),
               ),
@@ -138,7 +138,7 @@ class _LoginForm extends StatelessWidget {
                           Navigator.pushReplacementNamed(
                               context, AppRoutes.initialRoute);
                         } else {
-                          print(errorMesage);
+                          NotificacionsService.showSnackbar(errorMesage);
                           loginForm.isLoading = false;
                         }
                       },
