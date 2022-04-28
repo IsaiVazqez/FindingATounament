@@ -1,5 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+
 import 'package:flutter/material.dart';
 import 'package:login/models/models.dart';
 import 'package:http/http.dart' as http;
@@ -12,6 +14,7 @@ class TorneoService extends ChangeNotifier {
   bool isSaving = false;
   File? newPictureFile;
   late Torneos selectedTorneo;
+  final storage = new FlutterSecureStorage();
 
   TorneoService() {
     this.loadTorneos();
@@ -20,7 +23,8 @@ class TorneoService extends ChangeNotifier {
     this.isLoading = true;
     notifyListeners();
 
-    final url = Uri.https(_baseUrl, 'torneos.json');
+    final url = Uri.https(_baseUrl, 'torneos.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final resp = await http.get(url);
 
     final Map<String, dynamic> torneosMap = json.decode(resp.body);

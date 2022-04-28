@@ -61,7 +61,8 @@ class ServicioService extends ChangeNotifier {
   }
 
   Future<String> updateServicio(Servicio servicio) async {
-    final url = Uri.https(_baseUrl, 'products/${servicio.id}.json');
+    final url = Uri.https(_baseUrl, 'products/${servicio.id}.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final resp = await http.put(url, body: servicio.toJson());
     final decodedData = resp.body;
 
@@ -73,7 +74,8 @@ class ServicioService extends ChangeNotifier {
   }
 
   Future<String> createProduct(Servicio servicio) async {
-    final url = Uri.https(_baseUrl, 'products.json');
+    final url = Uri.https(_baseUrl, 'products.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final resp = await http.post(url, body: servicio.toJson());
     final decodedData = json.decode(resp.body);
 
@@ -85,7 +87,8 @@ class ServicioService extends ChangeNotifier {
   }
 
   Future<String> deleteProduct(Servicio servicio) async {
-    final url = Uri.https(_baseUrl, 'products/${servicio.id}.json');
+    final url = Uri.https(_baseUrl, 'products/${servicio.id}.json',
+        {'auth': await storage.read(key: 'token') ?? ''});
     final resp = await http.delete(url, body: servicio.toJson());
 
     final decodedData = json.decode(resp.body);

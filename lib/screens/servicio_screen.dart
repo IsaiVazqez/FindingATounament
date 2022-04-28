@@ -75,6 +75,7 @@ class _ServicesScreenBody extends StatelessWidget {
         distance: 112.0,
         children: [
           FloatingActionButton(
+            heroTag: "btn1",
             backgroundColor: Colors.indigo,
             child: servicioService.isSaving
                 ? const CircularProgressIndicator(
@@ -99,6 +100,7 @@ class _ServicesScreenBody extends StatelessWidget {
                   },
           ),
           FloatingActionButton(
+            heroTag: "btn2",
             backgroundColor: Colors.indigo,
             child: servicioService.isDeleting
                 ? const CircularProgressIndicator(color: Colors.white)
@@ -109,7 +111,7 @@ class _ServicesScreenBody extends StatelessWidget {
               await servicioService.deleteServicio(servicioForm.servicio);
               servicioService.servicio.clear();
               servicioService.loadServicios();
-              Navigator.pushReplacementNamed(context, AppRoutes.serviciohome);
+              Navigator.pushNamed(context, 'servicios');
             },
           ),
         ],
