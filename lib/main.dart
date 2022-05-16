@@ -6,9 +6,17 @@ import 'package:login/theme_model.dart';
 import 'routes/app_routes.dart';
 import 'services/services.dart';
 
-void main() => runApp(AppState());
+void main() async {
+  WidgetsFlutterBinding
+      .ensureInitialized(); //Se asegura que el token este creado antes de que la aplicación se inicie con los widgets y no caiga la app
+  await PushNotificacionService.initializeApp();
+
+  runApp(const AppState());
+}
 
 class AppState extends StatelessWidget {
+  const AppState({Key? key}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -17,12 +25,35 @@ class AppState extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ServicioService()),
         ChangeNotifierProvider(create: (_) => TorneoService())
       ],
-      child: MyApp(),
+      child: const MyApp(),
     );
   }
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  const MyApp({Key? key}) : super(key: key);
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final GlobalKey<NavigatorState> navigatorKey =
+      new GlobalKey<NavigatorState>();
+  final GlobalKey<ScaffoldMessengerState> messengerKey =
+      new GlobalKey<ScaffoldMessengerState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    PushNotificacionService.messagesStream.listen((message) {
+      navigatorKey.currentState?.pushNamed('profile', arguments: message);
+      final snackBar = SnackBar(content: Text(message));
+      messengerKey.currentState?.showSnackBar(snackBar);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
@@ -30,6 +61,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<ThemeModel>(
         builder: (context, ThemeModel themeNotifier, child) {
           return MaterialApp(
+            navigatorKey: navigatorKey,
             title: 'Material App',
             scaffoldMessengerKey: NotificacionsService.messengerKey,
             debugShowCheckedModeBanner: false,

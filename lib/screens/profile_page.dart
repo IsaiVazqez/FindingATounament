@@ -22,6 +22,8 @@ class _ProfilePageState extends State<ProfilePage> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)?.settings.arguments ?? 'Mi Perfil';
+
     final user = UserPreferences.myUser;
 
     return Scaffold(
@@ -30,14 +32,14 @@ class _ProfilePageState extends State<ProfilePage> {
                 borderRadius:
                     BorderRadius.vertical(bottom: Radius.circular(22))),
             automaticallyImplyLeading: false,
-            title: const Center(child: Text('Perfil')),
+            title: Center(child: Text('$args')),
             elevation: 0,
             titleTextStyle: const TextStyle(
                 fontSize: 20,
                 color: Color.fromARGB(255, 255, 255, 255),
                 fontWeight: FontWeight.bold,
                 fontFamily: 'SFPRODISPLAY'),
-            actions: []),
+            actions: const []),
         body: ListView(
           physics: const BouncingScrollPhysics(),
           children: [
